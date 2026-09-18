@@ -1,0 +1,28 @@
+{
+  "name": "dsh-freebuff",
+  "version": "0.1.0-alpha.1",
+  "description": "Provider-compliant Freebuff models and quota-aware multi-account routing for DeepSeek Harness.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib", "README.md", "LICENSE", "cordis.patch.yml"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --loader ./tools/ts-loader.mjs -e \"await import('./test/core.test.ts'); await import('./test/vault.test.ts'); await import('./test/provider.test.ts'); await import('./test/stream-safety.test.ts')\"",
+    "check": "npm run test && npm run typecheck"
+  },
+  "engines": { "node": ">=22" },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-llm": "*",
+    "@deepseek-ai/dsh-llm-pi-ai": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.0",
+    "@deepseek-ai/dsh-llm": "0.1.5-rc.2"
+  },
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

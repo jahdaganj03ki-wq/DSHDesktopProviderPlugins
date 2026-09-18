@@ -1,0 +1,50 @@
+name: Freebuff2DSH
+
+on:
+  push:
+    paths:
+      - 'Freebuff2DSH/**'
+      - '.github/workflows/freebuff2dsh.yml'
+  pull_request:
+    paths:
+      - 'Freebuff2DSH/**'
+      - '.github/workflows/freebuff2dsh.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Freebuff2DSH
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: Freebuff2DSH/package-lock.json
+      - name: Install dependencies
+        run: npm install --ignore-scripts --legacy-peer-deps
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Pack check
+        run: npm pack --dry-run
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dsh-freebuff-${{ github.sha }}
+          path: |
+            Freebuff2DSH/lib
+            Freebuff2DSH/package.json
+            Freebuff2DSH/cordis.patch.yml
+            Freebuff2DSH/README.md

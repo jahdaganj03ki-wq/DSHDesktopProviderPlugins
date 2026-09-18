@@ -1,0 +1,10 @@
+# Registers the Freebuff capability without changing DSH defaults.
+- insert:
+    - id: llm-freebuff
+      name: dsh-freebuff
+      config:
+        enableAccountFailover: false
+        maxAttempts: 1
+        maxAccountSwitches: 0
+        allowStreamingFailover: false
+        allowNonIdempotentFailover: false
