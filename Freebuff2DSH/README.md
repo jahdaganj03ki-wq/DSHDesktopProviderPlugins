@@ -1,5 +1,7 @@
 # dsh-freebuff
 
+CI build: GitHub Actions (`Freebuff2DSH` workflow)
+
 Native DeepSeek Harness provider integration for Freebuff models.
 
 > This initial implementation intentionally supports only provider-compliant
